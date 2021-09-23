@@ -14,10 +14,10 @@
 
 
 
-tfc_token=`cat tfe_team_token`
+tfc_token='tfe_team_token'
 address="app.terraform.io"
-organization="joestack"
-workspace="tfc-aws-bastion-host"
+organization="my-organization"
+workspace="new-workspace-name"
 
 ########################
 # 01) CREATE WORKSPACE #
@@ -26,7 +26,7 @@ workspace="tfc-aws-bastion-host"
 # Set name of workspace in workspace.json (create a payload.json)
 sed -e "s/placeholder/$workspace/" < workspace.template.json > workspace.json
 
-# Create workspace 
+# Create workspace
 workspace_result=$(
   curl -Ss \
        --header "Authorization: Bearer $tfc_token" \
@@ -52,9 +52,9 @@ do
       -e "s/my-category/$category/" \
       -e "s/my-hcl/$hcl/" \
       -e "s/my-sensitive/$sensitive/" < variable.template.json  > variable.json
-  
-  echo "Adding variable $key in category $category "
-  
+
+  echo "Adding variable $key in category $category"
+
   upload_variable_result=$(
     curl -Ss \
          --header "Authorization: Bearer $tfc_token" \
